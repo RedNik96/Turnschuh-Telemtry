@@ -7,6 +7,7 @@ from django.template import loader
 from django.conf import settings
 from wsgiref.util import FileWrapper
 from django.views import View
+from .models import TransferFile
 
 
 def index(request):
@@ -17,7 +18,7 @@ def index(request):
         'latest_question_list': latest_question_list,
     }
     return HttpResponse(template.render(context, request))
-    
+
 def filedownload(request):    
         # generate the file
     myfile= os.path.join(settings.MEDIA_ROOT,"uploads/dummy.zip")
@@ -51,5 +52,13 @@ class LoginView(View):
 def logout_view(request):
     logout(request)
     return redirect(reverse('index'))
-    
+
+
+def abfrage(request):
+    latest_list = TransferFile.objects.order_by('-user')[:5]
+    template = loader.get_template('turnschuh/index.html')
+    context = {
+        'latest_list': latest_list,
+    }
+    return HttpResponse(template.render(context, request))
 
