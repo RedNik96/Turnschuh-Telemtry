@@ -9,7 +9,54 @@
     {% endfor %}
 
      </ul>
-     <a href="{% url 'download' %}"><button type="button" class="btn btn-info btn-xs LS">Download</button></a>
+     <form> 
+        <h3>Wählen Sie die gewünschten Dateien aus:</h3> 
+        <fieldset>
+          <ul>
+            <li> 
+              <label>
+                <input type="checkbox" name="Feld" value="Feld1"> Feld1 
+                                   <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#RenameModal">
+                        Rename
+                </button>
+              </label>
+              
+            </li>
+            <li>
+                    <a href="{% url 'download' %}"><input type="submit" value="Download" class="btn btn-info btn-xs LS"></a>
+                    <input type="submit" value="Send to Agrirouter" class="btn btn-info btn-xs LS">
+                      
+            </li>
+          </ul> 
+        </fieldset> 
+      </form>
+
+      
+      <!-- Modal -->
+      <div class="modal fade" id="RenameModal" tabindex="-1" role="dialog" aria-labelledby="RenameModalTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="RenameModalTitle">Rename</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Rename</button>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
 {% endblock %}
 
 
