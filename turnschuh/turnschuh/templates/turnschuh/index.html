@@ -4,20 +4,18 @@
 
 {% block content %}
     <ul>
-    {% for question in latest_question_list %}
-        <li><a href="/polls/{{ responds }}/">{{ question }}</a></li>
-    {% endfor %}
-
+    
 
     {% if latest_list %}
     <ul>
-    {% for fk in latest_list %}
-        <li><a href="/polls/{{ user.id }}/">{{user.id}}{{user}}{{}}</a></li>
+    {% for id in latest_list %}
+        <li><a href="/polls/{{id}}/">{{id.direction}}{{id.name}}{{id.id}}</a></li>
+
     {% endfor %}
     </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
+        {% else %}
+            <p>No polls are available.</p>
+        {% endif %}
 
      </ul>
      <form> 

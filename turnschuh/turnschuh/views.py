@@ -55,7 +55,7 @@ def logout_view(request):
 
 
 def abfrage(request):
-    latest_list = TransferFile.objects.order_by('-user')[:5]
+    latest_list = TransferFile.objects.order_by(('-transferTime'))[:5]
     template = loader.get_template('turnschuh/index.html')
     context = {
         'latest_list': latest_list,
