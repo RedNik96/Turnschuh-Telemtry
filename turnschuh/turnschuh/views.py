@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -16,7 +16,10 @@ def index(request):
 
 class LoginView(View):
     def get(self, request):
-        return render(request, 'turnschuh/login.html')
+        if request.user.is_authenticated():
+            return redirect(reverse('index'))
+        else:
+            return render(request, 'turnschuh/login.html')
 
     def post(self, request):
         username = request.POST['username']
@@ -31,4 +34,9 @@ class LoginView(View):
                 'username': username
             }
             return render(request, 'turnschuh/login.html', ctx)
+
+
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('login'))
     
