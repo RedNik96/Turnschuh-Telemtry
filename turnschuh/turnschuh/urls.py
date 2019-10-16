@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^login$', views.LoginView.as_view(), name='login'),
     url(r'^logout$', views.logout_view, name='logout'),
     url(r'^download$', views.filedownload, name='download'),
-    url(r'^abfrage$', views.abfrage, name='abfrage')
-    url(r'^question_id$', views.vote, name='vote'),
+    url(r'^abfrage$', views.abfrage, name='abfrage'),
+    url(r'^question_id$', views.vote, name='vote')
 
 ]
