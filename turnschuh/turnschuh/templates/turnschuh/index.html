@@ -5,11 +5,11 @@
 {% block content %}
     <ul>
     {% for question in latest_question_list %}
-        <li><a href="/polls/{{ question }}/">{{ question }}</a></li>
+        <li><a href="/polls/{{ responds }}/">{{ question }}</a></li>
     {% endfor %}
 
      </ul>
-   
+     <a href="{% url 'download' %}"><button type="button" class="btn btn-info btn-xs LS">Download</button></a>
 {% endblock %}
 
 
