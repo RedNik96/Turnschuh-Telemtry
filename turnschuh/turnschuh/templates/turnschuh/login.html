@@ -1,0 +1,17 @@
+{% extends "turnschuh/base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    {% if error %}
+        <div>Wrong Credentials</div>
+    {% endif %}
+
+    <form action="{% url 'login' %}" method="POST">{% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" value="{{username}}" >
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password">
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}

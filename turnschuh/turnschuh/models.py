@@ -6,4 +6,4 @@ class TransferFile(models.Model):
     user = models.ForeignKey(User)
     direction = models.BooleanField(choices=((True,"Upload"),(False,"Download")))
     transferTime = models.DateTimeField(auto_now=True)
-    fileType = models.IntegerField(choices=((0,"TaskData"),(1,"Documents")), default=1)
+    fileType = models.IntegerField(choices=((0,"TaskData"),(1,"Documents")), default=0)

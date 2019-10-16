@@ -120,7 +120,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
-
 
 FILE_UPLOAD_HANDLERS = ["django.core.files.uploadhandler.TemporaryFileUploadHandler"]
+MEDIA_ROOT = os.path.join(BASE_DIR, '..')

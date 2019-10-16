@@ -1,6 +1,14 @@
 # DB
 dq.sqlite3
 
+# vscode
+.vscode/
+settings.json
+
+# upload path
+uploads/
+
+# pyhton
 _pycache__/
 *.py[cod]
 *$py.class

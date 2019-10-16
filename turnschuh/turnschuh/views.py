@@ -1,9 +1,14 @@
+from django.contrib.auth import authenticate, login, logout
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse
+from django.shortcuts import redirect, render
 from django.template import loader
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render
 from models import TransferFile
 from zipfile import ZipFile 
+from django.views import View
+
 
 def index(request):
     latest_question_list = [1,2,3,4]
@@ -36,3 +41,29 @@ def zipFiles(incfiles):
             zip.write(file.temporary_file_path()) 
     
   
+class LoginView(View):
+    def get(self, request):
+        if request.user.is_authenticated():
+            return redirect(reverse('index'))
+        else:
+            return render(request, 'turnschuh/login.html')
+
+    def post(self, request):
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect(reverse('index'))
+        else:
+            ctx = {
+                'error': True,
+                'username': username
+            }
+            return render(request, 'turnschuh/login.html', ctx)
+
+
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('index'))
+    
