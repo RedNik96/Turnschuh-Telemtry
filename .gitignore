@@ -1,6 +1,10 @@
 # DB
 dq.sqlite3
 
+# vscode
+.vscode/
+settings.json
+
 _pycache__/
 *.py[cod]
 *$py.class
