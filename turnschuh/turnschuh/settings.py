@@ -75,11 +75,8 @@ WSGI_APPLICATION = 'turnschuh.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'floriansql1',
-        'USERNAME': 'floriansql1',
-        'PASSWORD': 'farmhack',
-        'HOST': 'http://v22016053608234601.powersrv.de' 
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
     }
 }
 
