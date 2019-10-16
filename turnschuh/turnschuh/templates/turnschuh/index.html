@@ -3,44 +3,45 @@
 {% block title %}Index{% endblock %}
 
 {% block content %}
-    <ul>
-    
-
-    {% if latest_list %}
-    <ul>
-    {% for id in latest_list %}
-        <li><a href="/polls/{{id}}/">{{id.direction}}{{id.name}}{{id.id}}</a></li>
-
-    {% endfor %}
-    </ul>
-        {% else %}
-            <p>No polls are available.</p>
-        {% endif %}
-
-     </ul>
+<div class="container">
      <form> 
         <h3>Wählen Sie die gewünschten Dateien aus:</h3> 
         <fieldset>
-          <ul>
-            <li> 
-              <label>
-                <input type="checkbox" name="Feld" value="Feld1"> Feld1 
-                                   <!-- Button trigger modal -->
-                
-              </label>
-              
-            </li>
-            <li>
-                    <a href="{% url 'download' %}"><input type="submit" value="Download" class="btn btn-info btn-xs LS"></a>
-                    <input type="submit" value="Send to Agrirouter" class="btn btn-info btn-xs LS">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#DelateModal">
-                            Delate
-                    </button>  
-            </li>
-          </ul> 
+
+
+
+            {% if latest_list %}
+
+            {% for id in latest_list %}
+
+                           
+                                <div class="form-group form-control-lg">
+                                  <label for="Name" value="/polls/{{id}}/">{{id.name}}  :</label>
+                                  <label for="Time" value="/polls/{{id}}/">{{id.transferTime}}    {{id.direction}} </label>
+                                </div>
+        
+                                <div class="form-group form-check">
+                                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                  <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div>
+                              
+                                <a href="{% url 'download' %}"><input type="submit" value="Download" class="btn btn-info btn-xs LS"></a>
+                                <input type="submit" value="Send to Agrirouter" class="btn btn-info btn-xs LS">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#DelateModal">
+                                      Delate
+                                </button> 
+                                <br/>
+                                   
+                {% endfor %}
+           
+                {% else %}
+                    <p>No polls are available.</p>
+                {% endif %}
+
         </fieldset> 
       </form>
-
+      <input type="submit" value="Send to Agrirouter checkbox" class="btn btn-info btn-xs">
+</div>   
       
       <!-- Modal -->
       <div class="modal fade" id="DelateModal" tabindex="-1" role="dialog" aria-labelledby="DelateModalTitle" aria-hidden="true">
@@ -63,6 +64,26 @@
         </div>
 
 
+        <form action="{% url 'vote' %}" method="POST">{% csrf_token %}
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" value="{{username}}" >
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password">
+                <input type="submit" value="Submit">
+            </form>
+
+        <h1>{{ question.question_text }}</h1>
+
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        
+        <form action="{% url 'polls:vote' question.id %}" method="post">
+        {% csrf_token %}
+        {% for choice in question.choice_set.all %}
+            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
+        {% endfor %}
+        <input type="submit" value="Vote" />
+        </form>
       
 
 {% endblock %}
