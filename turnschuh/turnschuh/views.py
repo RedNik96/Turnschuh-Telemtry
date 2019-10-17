@@ -4,6 +4,10 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.template import loader
+from django.core.files.storage import FileSystemStorage
+from django.shortcuts import render
+from models import TransferFile
+from zipfile import ZipFile 
 from django.conf import settings
 from wsgiref.util import FileWrapper
 from django.views import View
@@ -19,6 +23,29 @@ def index(request):
     }
     return HttpResponse(template.render(context, request))
 
+def upload(request):
+    if request.method == 'POST':
+        # zip erst
+        # 
+
+        print(request.FILES)
+        print('---------- > {}'.format(request.FILES.getlist('files')))
+        zipFiles(request.FILES.getlist('files'))
+        transFile = TransferFile()
+        transFile.description = request.description
+#        transfile.path = 
+    return render(request, 'turnschuh/upload.html', {
+    })
+
+def zipFiles(incfiles):                         
+    print(incfiles)
+    with ZipFile('my_python_files.zip','w') as zip: 
+        # writing each file one by one 
+        for file in incfiles: 
+            print(file)
+            zip.write(file.temporary_file_path()) 
+    
+  
 
 
 class LoginView(View):
@@ -46,6 +73,7 @@ class LoginView(View):
 def logout_view(request):
     logout(request)
     return redirect(reverse('index'))
+    
 
 
 def abfrage(request):
