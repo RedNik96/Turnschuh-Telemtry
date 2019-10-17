@@ -22,5 +22,10 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^upload$', views.upload, name='upload'),
     url(r'^login$', views.LoginView.as_view(), name='login'),
-    url(r'^logout$', views.logout_view, name='logout')
+    url(r'^logout$', views.logout_view, name='logout'),
+    url(r'^download$', views.filedownload, name='download'),
+    url(r'^abfrage$', views.abfrage, name='abfrage'),
+    url(r'^delete$', views.delete, name='delete')
+
+
 ]

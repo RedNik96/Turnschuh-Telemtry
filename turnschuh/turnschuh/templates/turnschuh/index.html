@@ -3,11 +3,117 @@
 {% block title %}Index{% endblock %}
 
 {% block content %}
-<ul>
-    {% for question in latest_question_list %}
-        <li><a href="/polls/{{ question }}/">{{ question }}</a></li>
-    {% endfor %}
-    </ul>
-{% endblock %}
+<div class="container">
+        <div align="left">
+                <button type="button" name="add_data" id="add_data" class="btn btn-success btn-m">Upload </button>
+
+        </div>
+        <h3>Wählen Sie die gewünschten Dateien aus:</h3>
+
+        {% if latest_list %}
+
+        {% for id in latest_list %}
+        <div class="container">
+        <div class="row">
+                        <div class=".col-lg-4">
+                                        <div class="media">
+                                                        <div class="media-left">
+                                                                <img src="http://windows10portal.com/data/download-minecraft/thumbnail/thumbnail.png"
+                                                                        class="media-object" style="width:64px">
+                                                        </div>
+                                        <div class="media-body">
+                                                        
+                        </div>
+                        <div class=".col-lg-8">
+                                        <div class="form-group form-control-xs">
+                                                <label for="Name" value="/polls/{{id}}/"><b>Name:</b> {{id.name}}</label>
+                                                <label for="Time" value="/polls/{{id}}/"><b>Datum:</b> {{id.transferTime}} <b>File:</b>
+                                                        {{id.direction}} </label>
+                                        </div>
+                         
+                        
+                        
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                                        <form action="{% url 'download' %}" method="POST"> {% csrf_token %}
+                                                                <input type="hidden" name="down" id="down" value="{{id.path}}">
+                                                                <button type="submit" value="submit"
+                                                                        class="btn btn-secondary btn-xs">Download</button>
+                        
+                                                        </form>
+                        
+                                                        <form action="" method="">
+                                                                <button type="submit" class="btn btn-secondary btn-xs" data-toggle="modal"
+                                                                        data-target="#exampleModal" data-whatever="@{{id.name}}">Send to
+                                                                        Agrirouter Datei: {{id.name}}</button>
+                                                        </form>
+                        
+                                                        <form action="{% url 'delete' %}" method="POST"> {% csrf_token %}
+                                                                <input type="hidden" name="delete" id="delete" value="{{id.id}}">
+                                                                <button type="submit" value="submit"
+                                                                        class="btn btn-secondary btn-xs">Delete</button>
+                                                        </form>
+                                        </div>
+                
+        </div>
+        </div>
+
+                <!-- Left-aligned -->
+                
 
 
+                        
+                </div>
+
+                {% endfor %}
+
+                {% else %}
+                <p>No polls are available.</p>
+                {% endif %}
+
+        </div>
+
+
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                                <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                        </button>
+                                </div>
+                                <div class="modal-body">
+                                        <form>
+                                                <div class="form-group">
+                                                        <label for="recipient-name" class="col-form-label">Senden
+                                                                erfolgreich !</label>
+                                                        <!-- <input type="text" class="form-control" id="recipient-name">-->
+                                                </div>
+                                        </form>
+                                </div>
+                                <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Send message</button>
+                                </div>
+                        </div>
+                </div>
+                <script>
+                        $('#exampleModal').on('show.bs.modal', function (event) {
+                                var button = $(event.relatedTarget) // Button that triggered the modal
+                                var recipient = button.data('whatever') // Extract info from data-* attributes
+                                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                                var modal = $(this)
+                                modal.find('.modal-title').text('New message to ' + recipient)
+                                modal.find('.modal-body input').val(recipient)
+                        })
+
+                </script>
+
+
+
+
+                {% endblock %}
