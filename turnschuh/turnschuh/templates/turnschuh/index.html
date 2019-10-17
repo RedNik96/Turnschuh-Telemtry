@@ -4,36 +4,48 @@
 
 {% block content %}
 <div class="container">
-       
-                <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                        </div>
-                        <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile01"
-                                        aria-describedby="inputGroupFileAddon01">
-                                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                        </div>
+
+        <div class="input-group mb-3" style="padding-top: 20px;">
+
+                <div class="input-group-prepend">
+                        <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                        <input type="submit" value="submit" class="input-group-text" id="inputGroupFileAddon01">
                 </div>
-        
+                <div class="custom-file">
+
+                        <input type="file" class="custom-file-input" id="file" name="file"
+                                aria-describedby="inputGroupFileAddon01">
+
+                        <label class="custom-file-label" for="file">Choose file</label>
+                        <input>
+                        </form>
+
+                </div>
+
+        </div>
+ 
+
+
+
         <h3>Wählen Sie die gewünschten Dateien aus:</h3>
 
         {% if latest_list %}
 
         {% for id in latest_list %}
-        <div class="container" style="border: 1px solid #ccc; background-color: #eee; margin: 5px 0 5px 0; border-radius: 5px; padding: 5px">
+        <div class="container"
+                style="border: 1px solid #ccc; background-color: #eee; margin: 5px 0 5px 0; border-radius: 5px; padding: 5px">
                 <div class="row">
                         <div class="col-lg-4">
-                                
-                                        <div class="text-center">
-                                                <img src="http://windows10portal.com/data/download-minecraft/thumbnail/thumbnail.png"
-                                                        class="media-object" style="width:80px">
-                                        </div>
 
-                                
+                                <div class="text-center">
+                                        <img src="http://windows10portal.com/data/download-minecraft/thumbnail/thumbnail.png"
+                                                class="media-object" style="width:80px">
+                                </div>
+
+
                         </div>
-                        <div class="col-lg-8" >
-                                <div class="form-group form-control-m" >
+                        <div class="col-lg-8">
+                                <div class="form-group form-control-m">
                                         <label for="Name" value="/polls/{{id}}/"><b>Name:</b>
                                                 {{id.name}}</label>
                                         <label for="Time" value="/polls/{{id}}/"><b>Datum:</b>
@@ -43,7 +55,8 @@
 
 
 
-                                <div class="btn-group mr-2" role="group" aria-label="Basic example" style="width: 100%; max-width: 500px;">
+                                <div class="btn-group mr-2" role="group" aria-label="Basic example"
+                                        style="width: 100%; max-width: 500px;">
                                         <form action="{% url 'download' %}" method="POST">
                                                 {% csrf_token %}
                                                 <input type="hidden" name="down" id="down" value="{{id.path}}">
@@ -52,10 +65,10 @@
 
                                         </form>
 
-                                        <form action="" method=""    style="width: 100%;">
-                                                <button type="button" class="btn btn-secondary "
-                                                        data-toggle="modal" data-target="#exampleModal"
-                                                        data-whatever="@{{id.name}}"style="width: 100%; ">Send to
+                                        <form action="" method="" style="width: 100%;">
+                                                <button type="button" class="btn btn-secondary " data-toggle="modal"
+                                                        data-target="#exampleModal" data-whatever="@{{id.name}}"
+                                                        style="width: 100%; ">Send to
                                                         Agrirouter Datei: {{id.name}} </button>
                                         </form>
 
@@ -119,6 +132,12 @@
                 modal.find('.modal-body input').val(recipient)
         })
 
+
+// Add the following code if you want the name of the file appear on select
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
 </script>
 
 
