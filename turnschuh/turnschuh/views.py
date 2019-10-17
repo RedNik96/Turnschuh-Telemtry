@@ -6,12 +6,14 @@ from django.shortcuts import redirect, render
 from django.template import loader
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render
-from models import TransferFile
 from zipfile import ZipFile 
 from django.conf import settings
 from wsgiref.util import FileWrapper
 from django.views import View
 from .models import TransferFile
+from django.shortcuts import render
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 
 
 def index(request):
@@ -23,19 +25,7 @@ def index(request):
     }
     return HttpResponse(template.render(context, request))
 
-def upload(request):
-    if request.method == 'POST':
-        # zip erst
-        # 
 
-        print(request.FILES)
-        print('---------- > {}'.format(request.FILES.getlist('files')))
-        zipFiles(request.FILES.getlist('files'))
-        transFile = TransferFile()
-        transFile.description = request.description
-#        transfile.path = 
-    return render(request, 'turnschuh/upload.html', {
-    })
 
 def zipFiles(incfiles):                         
     print(incfiles)
@@ -99,22 +89,4 @@ def delete(request):
         deleteid = request.POST['delete']
         TransferFile.objects.filter(id=deleteid).delete()
         return redirect(reverse('abfrage'))
-
-from django.shortcuts import render
-from django.conf import settings
-from django.core.files.storage import FileSystemStorage
-
-def model_form_upload(request):
-    if request.method == 'POST':
-        form = DocumentForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-    else:
-        form = DocumentForm()
-    return render(request, 'core/model_form_upload.html', {
-        'form': form
-    })
-        
-     
 
