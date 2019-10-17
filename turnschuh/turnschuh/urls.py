@@ -25,9 +25,9 @@ urlpatterns = [
     url(r'^login$', views.LoginView.as_view(), name='login'),
     url(r'^logout$', views.logout_view, name='logout'),
     url(r'^connect$', views.connect, name='connect'),
-    url(r'^connect/authorize', views.connect_authorize_onboard, name='connect-authorize')
+    url(r'^connect/authorize', views.connect_authorize_onboard, name='connect-authorize'),
     url(r'^download$', views.filedownload, name='download'),
     url(r'^abfrage$', views.abfrage, name='abfrage'),
     url(r'^delete$', views.delete, name='delete')
-    
+
 ]

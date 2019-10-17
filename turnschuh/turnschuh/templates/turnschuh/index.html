@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container">
-        <div align="left">
+       
                 <div class="input-group mb-3">
                         <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
@@ -15,25 +15,25 @@
                                 <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                         </div>
                 </div>
-        </div>
+        
         <h3>Wählen Sie die gewünschten Dateien aus:</h3>
 
         {% if latest_list %}
 
         {% for id in latest_list %}
-        <div class="container">
+        <div class="container" style="border: 1px solid #ccc; background-color: #eee; margin: 5px 0 5px 0; border-radius: 5px; padding: 5px">
                 <div class="row">
-                        <div class=".col-lg-4">
-                                <div class="media">
-                                        <div class="media-left">
+                        <div class="col-lg-4">
+                                
+                                        <div class="text-center">
                                                 <img src="http://windows10portal.com/data/download-minecraft/thumbnail/thumbnail.png"
-                                                        class="media-object" style="width:64px">
+                                                        class="media-object" style="width:80px">
                                         </div>
 
-                                </div>
+                                
                         </div>
-                        <div class=".col-lg-8">
-                                <div class="form-group form-control-xs">
+                        <div class="col-lg-8" >
+                                <div class="form-group form-control-m" >
                                         <label for="Name" value="/polls/{{id}}/"><b>Name:</b>
                                                 {{id.name}}</label>
                                         <label for="Time" value="/polls/{{id}}/"><b>Datum:</b>
@@ -43,7 +43,7 @@
 
 
 
-                                <div class="btn-group" role="group" aria-label="Basic example">
+                                <div class="btn-group mr-2" role="group" aria-label="Basic example" style="width: 100%; max-width: 500px;">
                                         <form action="{% url 'download' %}" method="POST">
                                                 {% csrf_token %}
                                                 <input type="hidden" name="down" id="down" value="{{id.path}}">
@@ -52,11 +52,11 @@
 
                                         </form>
 
-                                        <form action="" method="">
-                                                <button type="button" class="btn btn-secondary btn-xs"
+                                        <form action="" method=""    style="width: 100%;">
+                                                <button type="button" class="btn btn-secondary "
                                                         data-toggle="modal" data-target="#exampleModal"
-                                                        data-whatever="@{{id.name}}">Send to
-                                                        Agrirouter Datei: {{id.name}}</button>
+                                                        data-whatever="@{{id.name}}"style="width: 100%; ">Send to
+                                                        Agrirouter Datei: {{id.name}} </button>
                                         </form>
 
                                         <form action="{% url 'delete' %}" method="POST">
