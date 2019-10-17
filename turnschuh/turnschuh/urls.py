@@ -32,6 +32,5 @@ urlpatterns = [
     url(r'^download$', views.filedownload, name='download'),
     url(r'^abfrage$', views.abfrage, name='abfrage'),
     url(r'^delete$', views.delete, name='delete')
-
-
+    
 ]
