@@ -1,3 +1,8 @@
+import base64
+import json
+
+from .agrirouter import get_authorize_url, onboard
+
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
@@ -39,4 +44,28 @@ class LoginView(View):
 def logout_view(request):
     logout(request)
     return redirect(reverse('index'))
+
+def connect(request):
+    ctx = {
+        'authorize_url': get_authorize_url()
+    }
+    return render(request, 'turnschuh/connect.html', ctx)
+
+def connect_authorize_onboard(request):
+    # TODO: Authentizität des Tokens prüfen
+
+    token = request.GET.get('token')
+    if not token:
+        return HttpResponse('Error while Authorization - no token')
+
+    json_token_str = base64.b64decode(request.GET.get('token'))
+    json_token = json.loads(json_token_str)
+    reg_code = json_token.get('regcode')
+
+    if not reg_code:
+        return HttpResponse('Erro while Authorization - no regcode')
+
+    onboard(reg_code)
+
+    return HttpResponse('Seems like success')
     
