@@ -15,18 +15,20 @@ Including another URLconf
 """
 
 from turnschuh import views
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.views.generic import TemplateView
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name='index'),
-    url(r'^upload$', views.upload, name='upload'),
+    url(r'^upload$', login_required(views.UploadView.as_view()), name='upload'),
     url(r'^login$', views.LoginView.as_view(), name='login'),
+    url(r'^accounts/login/', views.LoginView.as_view(), name='login-required'),
     url(r'^logout$', views.logout_view, name='logout'),
     url(r'^connect$', views.connect, name='connect'),
-    url(r'^connect/authorize', views.connect_authorize_onboard, name='connect-authorize')
+    url(r'^connect/authorize', views.connect_authorize_onboard, name='connect-authorize'),
     url(r'^download$', views.filedownload, name='download'),
     url(r'^abfrage$', views.abfrage, name='abfrage'),
     url(r'^delete$', views.delete, name='delete')
