@@ -11,9 +11,8 @@ from django.conf import settings
 from wsgiref.util import FileWrapper
 from django.views import View
 from .models import TransferFile
-from django.shortcuts import render
-from django.conf import settings
-from django.core.files.storage import FileSystemStorage
+
+
 
 
 def index(request):
