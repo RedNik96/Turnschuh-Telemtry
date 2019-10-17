@@ -4,9 +4,12 @@
 
 {% block content %}
 <div class="container">
-     
+        <div align="left">
+                <button type="button" name="add_data" id="add_data" class="btn btn-success btn-m">Upload </button>
+                
+        </div>     
         <h3>Wählen Sie die gewünschten Dateien aus:</h3> 
-        <fieldset>
+        
 
 
 
@@ -14,59 +17,41 @@
 
             {% for id in latest_list %}
 
-                           
-                                <div class="form-group form-control-lg">
-                                  <label for="Name" value="/polls/{{id}}/">{{id.name}}  :</label>
-                                  <label for="Time" value="/polls/{{id}}/">{{id.transferTime}}    {{id.direction}} </label>
-                                </div>
-        
-                                <div class="form-group form-check">
-                                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                  <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                </div>
+                    <div >     
+                        <div class="form-group form-control-xs" >
+                                  <label for="Name" value="/polls/{{id}}/"><b>Name:</b> {{id.name}}</label>
+                                  <label for="Time" value="/polls/{{id}}/"><b>Datum:</b> {{id.transferTime}} <b>File:</b> {{id.direction}} </label>
+                        </div>
+                            
 
+                        <div class="btn-group" role="group" aria-label="Basic example">
                                 <form action="{% url 'download' %}" method="POST"> {% csrf_token %}
-                                        <input type="text" name="down" id="down" value="{{id.path}}" >
-                                        <button type="submit" value="submit"class="btn btn-info btn-xs">Down</button>
+                                        <input type="hidden" name="down" id="down" value="{{id.path}}" >
+                                        <button type="submit" value="submit"class="btn btn-success btn-xs btn-outline-dark">Download</button>
           
                                 </form>
 
 
-                                <input type="submit" value="Send to Agrirouter" class="btn btn-info btn-xs LS">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#DelateModal">
-                                      Delate
-                                </button> 
-                                   
+                                <input type="submit" value="Send to Agrirouter" class="btn btn-info btn-xs">
+
+                                <form action="{% url 'delete' %}" method="POST"> {% csrf_token %}
+                                        <input type="hidden" name="delete" id="delete" value="{{id.id}}" >
+                                        <button type="submit" value="submit" class="btn btn-danger btn-xs" >Delete</button> 
+                                </form>
+                        </div>  
+                    </div>      
+                             
                 {% endfor %}
            
                 {% else %}
                     <p>No polls are available.</p>
                 {% endif %}
 
-        </fieldset> 
+        
  
-      <input type="submit" value="Send to Agrirouter checkbox" class="btn btn-info btn-xs">
+
 </div>   
       
-      <!-- Modal -->
-      <div class="modal fade" id="DelateModal" tabindex="-1" role="dialog" aria-labelledby="DelateModalTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="DelateModalTitle">Delate</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              Sind sie sicher ?
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Delate</button>
-            </div>
-          </div>
-        </div>
 
 
        

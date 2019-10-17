@@ -58,7 +58,7 @@ def abfrage(request):
 
 
 
-def filedownload( request):
+def filedownload(request):
         down = request.POST['down']
 
         mydownfile= os.path.join(settings.MEDIA_ROOT,down)    
@@ -66,3 +66,12 @@ def filedownload( request):
         response = HttpResponse(FileWrapper(open(mydownfile,"rb")), content_type='text/plain')
         response['Content-Disposition'] = 'attachment; filename=down'
         return response
+
+def delete(request):
+        deleteid = request.POST['delete']
+        TransferFile.objects.filter(id=deleteid).delete()
+        return redirect(reverse('abfrage'))
+
+        
+     
+
