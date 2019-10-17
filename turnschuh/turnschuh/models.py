@@ -8,7 +8,3 @@ class TransferFile(models.Model):
     transferTime = models.DateTimeField(auto_now=True)
     fileType = models.IntegerField(choices=((0,"TaskData"),(1,"Documents")), default=0)
     name= models.CharField(max_length=255, default=0),
-    
-    description = models.CharField(max_length=255, blank=True),
-    document = models.FileField(upload_to='uploads/'),
-    uploaded_at = models.DateTimeField(auto_now_add=True)
