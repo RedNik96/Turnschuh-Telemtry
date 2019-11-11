@@ -1,14 +1,14 @@
-{% extends "turnschuh/base.html" %}
+<?php
 
-{% block title %}Index{% endblock %}
+include("template/header.php");
 
-{% block content %}
+?>
 <div class="container">
 
         <div class="input-group mb-3" style="padding-top: 20px;">
 
                 <div class="input-group-prepend">
-                        <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                        <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data">
                         <input type="submit" value="submit" class="input-group-text" id="inputGroupFileAddon01">
                 </div>
                 <div class="custom-file">
@@ -29,9 +29,6 @@
 
         <h3>Wählen Sie die gewünschten Dateien aus:</h3>
 
-        {% if latest_list %}
-
-        {% for id in latest_list %}
         <div class="container"
                 style="border: 1px solid #ccc; background-color: #eee; margin: 5px 0 5px 0; border-radius: 5px; padding: 5px">
                 <div class="row">
@@ -46,19 +43,18 @@
                         </div>
                         <div class="col-lg-8">
                                 <div class="form-group form-control-m">
-                                        <label for="Name" value="/polls/{{id}}/"><b>Name:</b>
-                                                {{id.name}}</label>
-                                        <label for="Time" value="/polls/{{id}}/"><b>Datum:</b>
-                                                {{id.transferTime}} <b>File:</b>
-                                                {{id.direction}} </label>
+                                        <label for="Name" value=""><b>Name:</b></label>
+                                        <label for="Time" value=""><b>Datum:</b>
+                                               <b>File:</b>
+                                               </label>
                                 </div>
 
 
 
                                 <div class="btn-group mr-2" role="group" aria-label="Basic example"
                                         style="width: 100%; max-width: 500px;">
-                                        <form action="{% url 'download' %}" method="POST">
-                                                {% csrf_token %}
+                                        <form action="" method="POST">
+                                         
                                                 <input type="hidden" name="down" id="down" value="{{id.path}}">
                                                 <button type="submit" value="submit"
                                                         class="btn btn-secondary btn-xs">Download</button>
@@ -67,14 +63,14 @@
 
                                         <form action="" method="" style="width: 100%;">
                                                 <button type="button" class="btn btn-secondary " data-toggle="modal"
-                                                        data-target="#exampleModal" data-whatever="@{{id.name}}"
+                                                        data-target="#exampleModal" data-whatever="@"
                                                         style="width: 100%; ">Send to
-                                                        Agrirouter Datei: {{id.name}} </button>
+                                                        Agrirouter Datei:  </button>
                                         </form>
 
-                                        <form action="{% url 'delete' %}" method="POST">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="delete" id="delete" value="{{id.id}}">
+                                        <form action="" method="POST">
+                                         
+                                                <input type="hidden" name="delete" id="delete" value="">
                                                 <button type="submit" value="submit"
                                                         class="btn btn-secondary btn-xs">Delete</button>
                                         </form>
@@ -85,11 +81,9 @@
 
 
 
-        {% endfor %}
 
-        {% else %}
-        <p>No TransferFiles are available.</p>
-        {% endif %}
+        <p>No polls are available.</p>
+     
 </div>
 
 
@@ -142,5 +136,8 @@ $(".custom-file-input").on("change", function() {
 
 
 
+<?php
 
-{% endblock %}
+include("template/footer.php");
+
+?>

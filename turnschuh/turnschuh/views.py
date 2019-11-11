@@ -32,14 +32,14 @@ def index(request):
 
 class UploadView(View):
     def get(self, request):
-        return render(request, 'turnschuh/upload.html')
+        return render(request, 'turnschuh/abfrage.html')
     
     def post(self, request):
         print(request.FILES)
         file = request.FILES.get('file')
         print(type(file))
         if file is None:
-            return render(request, 'turnschuh/upload.html', {'error': 'No File provided!'})
+            return redirect(reverse('abfrage'))
         
         TransferFile.objects.create(**{
             'path': file,
@@ -47,7 +47,7 @@ class UploadView(View):
             'direction': True,
             'name': file.name
         })
-        return render(request, 'turnschuh/upload.html')
+        return redirect(reverse('abfrage'))
 
 
 def zipFiles(incfiles):                         
