@@ -59,6 +59,17 @@ def onboard(regcode):
 
 
 def _create_onboard_signature(body):
+    from Cryptodome.Signature import pkcs1_15
+    from Cryptodome.Hash import SHA256
+    from Cryptodome.PublicKey import RSA
+
+    key = RSA.import_key(open(PRIVATE_KEY_PATH).read())
+    h = SHA256.new(body.encode())
+    signature = pkcs1_15.new(key).sign(h)
+
+    return signature.hex()
+
+
     """return ''
 
     import rsa
